@@ -19,7 +19,8 @@ class SimpleDigestAuth(object):
     def _generate_partial_digest(self, login, password, zone):
         if not is_ascii(login) or not is_ascii(password) or not is_ascii(zone):
             return False
-        return hashlib.md5('%s:%s:%s' % (login, zone, password)).hexdigest()
+        hsh = '%s:%s:%s' % (login, zone, password)
+        return hashlib.md5(hsh.encode('utf-8')).hexdigest()
 
     def is_admin(self, login):
         return True

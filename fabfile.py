@@ -289,7 +289,7 @@ def setup_dhcpd():
 
 
     with cd('/etc/dhcp/'):
-        put(source_tpl,'dhcpd.conf.install',base_vars)
+        upload_template(source_tpl, 'dhcpd.conf.install', context=base_vars)
         with settings(warn_only=True):
             if run('diff /etc/dhcp/dhcpd.conf.install /etc/dhcp/dhcpd.conf'):
                 run('cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.backup')
@@ -319,7 +319,7 @@ def install_ssh_config():
     if not env.host_string in LOWERED_PRIVILEGES:
         if not fabric.contrib.files.exists('./.ssh/ssh_config'):
             sshc = open('ssh_config','r').read().replace(' %s'%SSH_HOST_KEYNAME,' ~/.ssh/%s'%SSH_HOST_KEYNAME).replace(' %s'%SSH_VIRT_KEYNAME,' ~/.ssh/%s'%SSH_VIRT_KEYNAME)
-            unc = io.BytesIO(sshc)
+            unc = io.BytesIO(sshc.encode('utf-8'))
             put(unc,'.ssh/config')
 
     for kfn in SSH_KEYNAMES:

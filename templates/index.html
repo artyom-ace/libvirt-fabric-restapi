@@ -24,7 +24,7 @@ what node groups you've got access to
 $ ./restapi.sh /groups
 
 create a new machine from template ubuntu-12.04-template.img, belonging to group "jenkins", under host hyperv1:
-$ ./restapi.sh /nodes/hyperv1 -X POST -d 'name=gagarin&image=ubuntu-12.04-template.img&group=jenkins'
+$ ./restapi.sh /nodes/hyperv1 -X POST -d 'name=gagarin&image=ubuntu-12.04-template.img&group=group1&simulate=false'
 
 enlarge a machine's disk
 $ ./restapi.sh /nodes/hyperv1/virtmachine/disk -X PUT -d 'size=10G'
